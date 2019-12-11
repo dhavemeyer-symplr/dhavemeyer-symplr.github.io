@@ -1,52 +1,55 @@
 <style>
 
-    .flex-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
+  body {
+    background-color: white;    
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+</style>
+
+<script>
+
+    var seconds = 0;
+  var timer = 0;
   
-  </style>
+  function formatTime(seconds) {
+      var minutesText = Math.floor(seconds / 60);
+    var secondsText = seconds % 60;
+    if (secondsText < 10) secondsText = '0' + secondsText;
+      return minutesText + ':' + secondsText;
+  }
   
-  <script>
+  function startTimer() {
+      timer = setInterval(() => {
+      seconds++;
+      document.getElementById('timer').innerText = formatTime(seconds);
+    }, 1000);
+  }
   
-      var seconds = 0;
-    var timer = 0;
-    
-    function formatTime(seconds) {
-        var minutesText = Math.floor(seconds / 60);
-      var secondsText = seconds % 60;
-      if (secondsText < 10) secondsText = '0' + secondsText;
-        return minutesText + ':' + secondsText;
-    }
-    
-    function startTimer() {
-        timer = setInterval(() => {
-        seconds++;
-        document.getElementById('timer').innerText = formatTime(seconds);
-      }, 1000);
-    }
-    
-      function stopAndResetTimer() {
+    function stopAndResetTimer() {
+    clearInterval(timer);
+    seconds = 0;
+      document.getElementById('timer').innerText = formatTime(seconds);
+  }
+  
+  function stopTimer() {
       clearInterval(timer);
-      seconds = 0;
-        document.getElementById('timer').innerText = formatTime(seconds);
-    }
-    
-    function stopTimer() {
-        clearInterval(timer);
-    }
-  
-  </script>
-  
-  <div class="flex-container">
-    <h1 id="timer">0:00</h1>
-    <div>
-      <button onClick="startTimer()">Start</button>
-      <button onClick="stopTimer()">Stop</button>
-      <button onClick="stopAndResetTimer()">Reset</button>
-    </div>
+  }
+
+</script>
+
+<div class="flex-container">
+  <h1 id="timer">0:00</h1>
+  <div>
+    <button onClick="startTimer()">Start</button>
+    <button onClick="stopTimer()">Stop</button>
+    <button onClick="stopAndResetTimer()">Reset</button>
   </div>
-  
+</div>
